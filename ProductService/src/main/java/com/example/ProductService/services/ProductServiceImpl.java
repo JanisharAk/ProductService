@@ -1,18 +1,19 @@
 package com.example.ProductService.services;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.example.ProductService.models.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService{
     @Override
-    public String getProductById(Long id) {
-        return "Product fetched from service, Id: " +id;
+    public Product getProductById(Long id) {
+
+        return null;
     }
 
     @Override
-    public List<String> getAllProducts() {
+    public List<Product> getAllProducts() {
         return null;
     }
 
