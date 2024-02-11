@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
+//@ControllerAdvice(assignableTypes = {ProductControllerAdvice.class})  //for specific we use this
 public class ProductControllerAdvice {
 
     @ExceptionHandler(ProductNotFoundException.class)

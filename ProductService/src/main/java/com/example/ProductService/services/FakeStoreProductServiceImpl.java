@@ -7,6 +7,7 @@ import com.example.ProductService.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -64,7 +65,13 @@ public Product getProductById(Long id) throws ProductNotFoundException {
     }
 
     @Override
-    public void addProduct() {
+    public Product addProduct(Product product) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        HttpEntity<Product>prod = new HttpEntity<>(product);
+        ResponseEntity<FakeStoreProductDto> responseEntity=
+                restTemplate.postForEntity(genericProductUrl,
+                       prod,FakeStoreProductDto.class);
+        return getProductFromFakeStoreProductDto(responseEntity.getBody());
 
     }
 
@@ -82,6 +89,16 @@ public Product getProductById(Long id) throws ProductNotFoundException {
         product.setCategory(category);
         product.setPrice(fakeStoreProductDto.getPrice());
         return product;
+
+    }
+    // creating mapper here
+    private FakeStoreProductDto getFakeStoreProductDtoFromProduct( Product product){
+        FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
+        fakeStoreProductDto.setTitle(product.getTitle());
+        fakeStoreProductDto.setDescription(product.getDesc());
+        fakeStoreProductDto.setCategory(product.getCategory().getName());
+        fakeStoreProductDto.setPrice(product.getPrice());
+        return fakeStoreProductDto;
 
     }
 }

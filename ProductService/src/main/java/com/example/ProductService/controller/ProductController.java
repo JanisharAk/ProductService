@@ -33,6 +33,12 @@ public class ProductController {
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
+
+    public Product createProduct(@RequestBody Product product){
+        return productService.addProduct(product);
+
+    }
+
 //    public String getProductCategory(String category)
 //    }
 //    @ExceptionHandler(ProductNotFoundException.class)
@@ -43,6 +49,16 @@ public class ProductController {
 //        exceptionDto.setMessage(e.getMessage());
 //        exceptionDto.setStatus("Failure");
 //        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.NOT_FOUND);
+//        return  responseEntity;
+//    }
+
+   // @ExceptionHandler(ProductNotFoundException.class)
+//    //@ResponseStatus(HttpStatus.NOT_FOUND) // we can use this annotation
+//   // @ResponseBody
+//    private ExceptionDto handleProductNotFoundException(ProductNotFoundException e){
+//        ExceptionDto = new ExceptionDto();
+//        exceptionDto.setMessage(e.getMessage());
+//        exceptionDto.setStatus("Failure");
 //        return  responseEntity;
 //    }
 }
