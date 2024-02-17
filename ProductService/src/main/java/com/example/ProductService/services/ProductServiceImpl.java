@@ -14,12 +14,14 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getAllProducts() {
+
         return null;
     }
 
     @Override
-    public void deleteProductById() {
+    public Product deleteProductById(Long id) {
 
+        return null;
     }
 
     @Override
@@ -28,8 +30,11 @@ public class ProductServiceImpl implements ProductService{
 
     }
 
+
+
     @Override
-    public void updateProductById() {
+    public Product updateProductById(Long id) {
+        return null;
 
     } //after interface we use implementation as for dependency inversion
 

@@ -29,14 +29,22 @@ public class ProductController {
     }
 
     @GetMapping()
-
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
-
+    @PostMapping
     public Product createProduct(@RequestBody Product product){
         return productService.addProduct(product);
+    }
 
+    @DeleteMapping("/{id}")    //here we can use also @getMapping("/products/{id}) but above is best
+    public void deleteProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException {//annotation will the link of the above id
+         productService.deleteProductById(id);
+    }
+
+    @PutMapping("/{id}")    //here we can use also @PutMapping("/products/{id}) but above is best
+    public Product updateProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException {//annotation will the link of the above id
+        return productService.updateProductById(id);
     }
 
 //    public String getProductCategory(String category)
@@ -52,7 +60,7 @@ public class ProductController {
 //        return  responseEntity;
 //    }
 
-   // @ExceptionHandler(ProductNotFoundException.class)
+    // @ExceptionHandler(ProductNotFoundException.class)
 //    //@ResponseStatus(HttpStatus.NOT_FOUND) // we can use this annotation
 //   // @ResponseBody
 //    private ExceptionDto handleProductNotFoundException(ProductNotFoundException e){
