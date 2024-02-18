@@ -1,19 +1,25 @@
 package com.example.ProductService.models;
 
-import lombok.Data;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import java.util.List;
 
 @Getter
 @Setter
-
-
+@Entity
 public class Product extends BaseModel {
-    private Long id; //wrapper class
     private String title;
-    private String desc;
+    private String description;
     private Long price;
+    @ManyToOne
     private Category category;
 
+    /*
+    1 Product - 1 Category
+    1 Category - M Product
+     */
 }
