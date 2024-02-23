@@ -1,15 +1,27 @@
 package com.example.ProductService.services;
 
+import com.example.ProductService.models.Category;
 import com.example.ProductService.models.Product;
+import com.example.ProductService.repos.ProductRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+import java.util.Optional;
+
+@Service("SelfProductService")
 public class ProductServiceImpl implements ProductService{
+    private ProductRepo productRepo;
+    public ProductServiceImpl(ProductRepo productRepo)
+    {
+        this.productRepo = productRepo;
+    }
     @Override
     public Product getProductById(Long id) {
-
-        return null;
+        Optional<Product> product = this.productRepo.findById(id);
+//        if(product.isPresent()){
+//            Category category = product.get().getCategory();
+//        }
+        return product.get();
     }
 
     @Override

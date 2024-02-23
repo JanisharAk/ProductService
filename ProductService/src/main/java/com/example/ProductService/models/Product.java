@@ -15,7 +15,7 @@ public class Product extends BaseModel {
     private String title;
     private String description;
     private Long price;
-    @ManyToOne
+    @ManyToOne  // relationship between product and category
     private Category category;
 
     /*
