@@ -2,6 +2,7 @@ package com.example.ProductService.services;
 
 import com.example.ProductService.models.Category;
 import com.example.ProductService.models.Product;
+import com.example.ProductService.repos.CategoryRepo;
 import com.example.ProductService.repos.ProductRepo;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,11 @@ import java.util.Optional;
 @Service("SelfProductService")
 public class ProductServiceImpl implements ProductService{
     private ProductRepo productRepo;
-    public ProductServiceImpl(ProductRepo productRepo)
+    private CategoryRepo categoryRepo;
+    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo){
+        this.productRepo = productRepo;
+        this.categoryRepo = categoryRepo;
+    }
     {
         this.productRepo = productRepo;
     }
@@ -38,7 +43,15 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product  addProduct(Product product) {
-        return null;
+        Optional<Category> categoryOptional = this.categoryRepo.findByName(product.getCategory().getName());
+        if(categoryOptional.isPresent()){
+            product.setCategory(categoryOptional.get());
+        }
+        else{
+            Category category = categoryRepo.save(product.getCategory());
+            product.setCategory(category);
+        }
+        return this.productRepo.save(product);
 
     }
 
