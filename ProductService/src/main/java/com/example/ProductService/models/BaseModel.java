@@ -15,5 +15,11 @@ import java.util.UUID;
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    //    @GeneratedValue(generator = "generator_name")
+    //    @GenericGenerator(name = "generator_name",
+    //    strategy = "uuid2")
+    //    @Column(name = "id", columnDefinition = "binary(16)",
+    //    updatable = false, nullable = false)
+
     private Long id;
 }
