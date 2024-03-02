@@ -5,11 +5,12 @@ import com.example.ProductService.models.Product;
 import com.example.ProductService.repos.CategoryRepo;
 import com.example.ProductService.repos.ProductRepo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Primary
 @Service("SelfProductService")
 public class ProductServiceImpl implements ProductService{
     private ProductRepo productRepo;

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController //ask spring to create object
 @RequestMapping("/products/")//common path
 public class ProductController {
@@ -21,11 +23,17 @@ public class ProductController {
     @Autowired
     public ProductController(@Qualifier("SelfProductService") ProductService productService) {
         this.productService = productService;
+
     }
+
+
 
     @GetMapping("/{id}")    //here we can use also @getMapping("/products/{id}) but above is best
     public Product getProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException {//annotation will the link of the above id
-        return productService.getProductById(id);
+        //return productService.getProductById(id);
+        Product p = productService.getProductById(id);
+        //p.setId(2L);
+        return p;
     }
 
     @GetMapping()
