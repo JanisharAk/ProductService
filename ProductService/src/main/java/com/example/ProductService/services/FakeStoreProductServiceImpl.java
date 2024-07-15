@@ -38,17 +38,36 @@ public class FakeStoreProductServiceImpl implements ProductService{
 
     @Override
     public Product deleteProductById(Long id) {
-        return getProductFromFakeStoreProductDto(fakeStoreClient.deleteProductById(id));
+          FakeStoreProductDto deleteProductDto = fakeStoreClient.deleteProductById(id);
+        if (deleteProductDto != null) {
+            // If the product was deleted, convert the deleted product DTO to Product object and return it
+            return getProductFromFakeStoreProductDto(deleteProductDto);
+        } else {
+            return null;
+            }
+//return getProductFromFakeStoreProductDto(fakeStoreClient.deleteProductById(id));
     }
+
 
     @Override
     public Product addProduct(Product product) {
-        return getProductFromFakeStoreProductDto(fakeStoreClient.addProduct(getFakeStoreProductDtoFromProduct(product)));
+        // Convert the Product object to FakeStoreProductDto
+        FakeStoreProductDto fakeStoreProductDto = getFakeStoreProductDtoFromProduct(product);
+
+        // Call the fakeStoreClient to add the product
+        FakeStoreProductDto addedProductDto = fakeStoreClient.addProduct(fakeStoreProductDto);
+
+        // Convert the added product DTO to Product object and return it
+        return getProductFromFakeStoreProductDto(addedProductDto);
+       // return getProductFromFakeStoreProductDto(fakeStoreClient.addProduct(getFakeStoreProductDtoFromProduct(product)));
     }
 
 
     @Override
     public Product updateProductById(Long id) throws ProductNotFoundException {
+        // Convert the updated Product object to FakeStoreProductDto
+//FakeStoreProductDto updateProductDto = getFakeStoreProductDtoFromProduct(updateProduct);
+
         return getProductFromFakeStoreProductDto(fakeStoreClient.getProductById(id));
     }
 

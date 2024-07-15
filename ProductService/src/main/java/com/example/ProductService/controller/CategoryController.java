@@ -12,17 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+
 @RestController
 @RequestMapping
 public class CategoryController {
     private CategoryRepo categoryRepo;
 
     public CategoryController(CategoryRepo categoryRepo) {
+
         this.categoryRepo = categoryRepo;
     }
 
     @GetMapping("/categories/{id}")
     public Category categories(@PathVariable("id") Long id) {
+
         return categoryRepo.findById(id).get();
     }
 }

@@ -26,8 +26,6 @@ public class ProductController {
 
     }
 
-
-
     @GetMapping("/{id}")    //here we can use also @getMapping("/products/{id}) but above is best
     public Product getProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException {//annotation will the link of the above id
         //return productService.getProductById(id);
@@ -38,6 +36,7 @@ public class ProductController {
 
     @GetMapping()
     public List<Product> getAllProducts() {
+
         return productService.getAllProducts();
     }
     @PostMapping("/create")
@@ -51,7 +50,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")    //here we can use also @PutMapping("/products/{id}) but above is best
-    public Product updateProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException {//annotation will the link of the above id
+    public Product updateProductbyId(@PathVariable("id") Long id, @RequestBody Product product) throws ProductNotFoundException {//annotation will the link of the above id
         return productService.updateProductById(id);
     }
 

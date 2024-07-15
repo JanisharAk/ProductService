@@ -26,23 +26,24 @@ public class ProductServiceImpl implements ProductService{
         Product product = this.productrepo.findById(id);
         Category category = product.getCategory();
          */
-        Optional<Product> product = this.productRepo.findById(id);
-//        if(product.isPresent()) {
-//            Category category = product.get().getCategory();
-//        }
-        return product.get();
+        Optional<Product> product = productRepo.findById(id);
+        if(product.isPresent()) {
+            return product.get();
+        }
+        return null;
     }
 
     @Override
     public List<Product> getAllProducts() {
-
-        return null;
+        this.productRepo.findAll();
+        return this.productRepo.findAll();
+        //return null;
     }
 
     @Override
     public Product deleteProductById(Long id) {
-
-        return null;
+        Optional<Product> product = this.productRepo.findById(id);
+        return product.orElse(null);
     }
 
     @Override
