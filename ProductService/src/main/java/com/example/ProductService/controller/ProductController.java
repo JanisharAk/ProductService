@@ -3,6 +3,7 @@ package com.example.ProductService.controller;
 import com.example.ProductService.dtos.ExceptionDto;
 import com.example.ProductService.exceptions.ProductNotFoundException;
 import com.example.ProductService.models.Product;
+import com.example.ProductService.security.service.AuthenticationService;
 import com.example.ProductService.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -17,18 +19,26 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @RestController //ask spring to create object
 @RequestMapping("/products/")//common path
 public class ProductController {
-
+    @Autowired
     private ProductService productService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    public ProductController(@Qualifier("SelfProductService") ProductService productService) {
+    public ProductController(@Qualifier("SelfProductService") ProductService productService, AuthenticationService authenticationService) {
         this.productService = productService;
+        this.authenticationService = authenticationService;
 
     }
 
     @GetMapping("/{id}")    //here we can use also @getMapping("/products/{id}) but above is best
-    public Product getProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException {//annotation will the link of the above id
+    //public Product getProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException {//annotation will the link of the above id
         //return productService.getProductById(id);
+
+    public Product getProductbyId(@PathVariable("id") Long id) throws ProductNotFoundException, AccessDeniedException {
+//        if(!authenticationService.authenticate(token)) {
+//            throw new AccessDeniedException("You are not authorised");
+//        }
+
         Product p = productService.getProductById(id);
         //p.setId(2L);
         return p;
